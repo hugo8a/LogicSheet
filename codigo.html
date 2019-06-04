@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width-device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Patrones Existentes</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,500,600" rel="stylesheet">
+		<!--
+		CSS
+		============================================= -->
+		<link rel="stylesheet" href="css/linearicons.css">
+		<link rel="stylesheet" href="css/owl.carousel.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/nice-select.css">
+		<link rel="stylesheet" href="css/magnific-popup.css">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+			<link rel="stylesheet" href="modal.css">
+		<div class="main-wrapper-first">
+			<header>
+				<div class="container">
+					<div class="header-wrap">
+						<div class="header-top d-flex justify-content-between align-items-center">
+							<div class="logo">
+								<a href="index.html"><img src="img/logo2.png" width="100px"></a>
+							</div>
+							<div class="main-menubar d-flex align-items-center">
+								<nav class="hide">
+									<a href="index.html">Home</a>
+									
+								</nav>
+								<div class="menu-bar"><span class="lnr lnr-menu"></span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<!-- Start Service Area -->
+			<section class="service-area">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<div class="section-title text-center">
+								<h3 class="text-white">Codigos de los Patrones</h3>
+							</div>
+						</div>
+					</div>
+					
+					<button onclick="document.getElementById('modal-wrapper').style.display='block'" style="width:200px; margin-top:50px; margin-left:50px;">
+							Patron Chains Of resposabilitys</button>
+							
+							<div id="modal-wrapper" class="modal">
+							  
+							  <form class="modal-content animate" action="/action_page.php">
+									
+								<div class="imgcontainer">
+										<span onclick="document.getElementById('modal-wrapper').style.display='none'" class="close" title="Close PopUp">&times;</span>
+								  <h1 style="text-align:center">Patron Chains Of resposabilitys</h1>
+								</div>
+							<br>
+							<br>
+								<div class="container" >
+											<p>
+												<h2>Main.java</h2>
+												package ChainOfResponsability1;
+												<br>
+													public class Main
+													<br>
+													{
+														<br>
+														public static void main(String[] args)
+														<br>
+														{
+															<br>
+															Manejador m1 = new ManejadorAprobado();
+															<br>
+															Manejador m2 = new ManejadorDenegado();
+															<br>
+															Manejador m3 = new ManejadorPendiente();
+															<br>
+															 m1.setSiguiente( m2 );
+															 <br>
+															 m2.setSiguiente( m3 );
+															 <br>
+															 m1.comprobar("APROBADO");
+															 <br>
+															m1.comprobar("APROBADO");
+															<br>
+															m1.comprobar("DENEGADO");
+															<br>
+															m1.comprobar(null);
+															<br>
+															m1.comprobar("DENEGADO");
+															<br>
+														}
+														<br>
+													}
+													<br>
+													<h3>Manejador Java</h3>
+													<br>
+													<br>
+													public abstract class Manejador
+													<br>
+													{
+														<br>
+														protected Manejador siguienteManejador;
+														<br>
+														<br>
+														public Manejador getSiguiente() {
+															<br>
+															return this.siguienteManejador;
+															<br>
+														}
+														<br>
+														<br>
+														public void setSiguiente(Manejador m) {
+															<br>
+															this.siguienteManejador = m;
+															<br>
+														}
+														<br>
+														<br>
+														 public abstract void comprobar(String estado);
+														 <br>
+													}
+													<br>
+													<h4>ManejadorAprobado.Java</h4>
+													<br>
+													public class ManejadorAprobado extends Manejador
+													<br>
+													{
+														<br>
+														public ManejadorAprobado() {
+														<br>
+														}
+														<br>
+														@Override
+														<br>
+														 public void comprobar(String estado)
+														 <br>
+														{
+															<br>
+														   if( (estado != null) && (estado.equalsIgnoreCase("APROBADO") == true) )
+														   <br>
+														   {
+															   <br>
+															   System.out.println("Solicitud aprobada");
+															   <br>
+														   }
+														   <br>
+														   else
+														   <br>
+														   {
+															   <br>
+																 if( this.getSiguiente() != null )
+																 <br>
+																{
+																	<br>
+																	// Llamamos al método en el siguiente objeto
+																	<br>
+																	 this.getSiguiente().comprobar( estado );
+																	 <br>
+																}
+																<br>
+														   }
+														   <br>
+														}
+														<br>
+													}
+													<br>
+													<h5>ManejadorDenegado.Java</h5>
+													<br>
+													public class ManejadorDenegado extends Manejador
+													<br>
+													{
+														<br>
+														public ManejadorDenegado() {
+															<br>
+														}
+														<br>
+														<br>
+														@Override
+														<br>
+														 public void comprobar(String estado)
+														 <br>
+														{
+															<br>
+
+														   if( (estado != null) && (estado.equalsIgnoreCase("DENEGADO") == true) )
+														   <br>
+														   {
+															   <br>
+															   System.out.println("Solicitud denegada");
+															   <br>
+														   }
+														   <br>
+														   else
+														   <br>
+														   {
+															   <br>
+																 if( this.getSiguiente() != null )
+																<br>
+																 {
+																	 <br>
+																	// Llamamos al método en el siguiente objeto
+																	<br>
+																	 this.getSiguiente().comprobar( estado );
+																	 <br>
+																}
+																<br>
+														   }
+														   <br>
+														} <br>
+													} <br>
+													<h6>ManejadorPendiente.Java</h6> <br>
+													public class ManejadorPendiente extends Manejador <br>
+													{ <br>
+														public ManejadorPendiente() { <br>
+														} <br>
+														@Override <br>
+														 public void comprobar(String estado) <br>
+														{ <br>
+														   if( estado == null ) <br>
+														   { <br>
+															   System.out.println("Solicitud pendiente"); <br>
+														   } <br>
+														   else <br>
+														   { <br>
+																 if( this.getSiguiente() != null ) <br>
+																{ <br>
+																	// Llamamos al método en el siguiente objeto <br>
+																	 this.getSiguiente().comprobar( estado ); <br>
+																} <br>
+														   } <br>
+														} <br>
+													} <br>
+											</p>
+								</div>
+							  </form>
+							</div>
+							
+							<button onclick="document.getElementById('modal-wrapper2').style.display='block'" style="width:200px; margin-top:100px; margin-right:50px;">
+									Patrón Command</button>
+									
+									<div id="modal-wrapper2" class="modal2">
+									  
+									  <form class="modal-content2 animate" action="/action_page.php">
+											
+										<div class="imgcontainer2">
+												<span onclick="document.getElementById('modal-wrapper2').style.display='none'" class="close" title="Close PopUp">&times;</span>
+										  <h1 style="text-align:center">Patrón Command</h1>
+										</div>
+									<br>
+									<br>
+										<div class="container" >
+													<p>
+														<br>
+															package com.arquitecturajava; <br>
+															public interface TareaProducto { <br>
+															public abstract void ejecutar(Producto producto); <br>
+															} <br>
+															package com.arquitecturajava; <br>
+															public class TareaEnvioCorreo implements TareaProducto  { <br>
+																@Override <br>
+																public void ejecutar(Producto producto) { <br>
+																	System.out.println(producto.getNombre() +"enviado por correo") ; <br>
+																} <br>
+															} <br>
+															<br>
+															<br>
+															package com.arquitecturajava;<br>
+															public class TareaImprimirProducto  implements TareaProducto{ <br>
+																@Override <br>
+																public void ejecutar(Producto producto) { <br>
+																	System.out.println(producto.getNombre()); <br>
+																	System.out.println(producto.getId()); <br>
+																	System.out.println(producto.getPrecio()); <br>
+																} <br>
+															} <br> <br>
+
+															package com.arquitecturajava; <br>
+															public class ValidarProducto implements TareaProducto{ <br>
+																@Override <br>
+																public void ejecutar(Producto producto) { <br>
+																if (producto.getPrecio()&lt;100) { <br>
+																	System.out.println("producto valido"); <br>
+																}else { <br>
+																	System.out.println("producto invalido"); <br>
+																} <br>
+																} <br>
+															} <br>
+															package com.arquitecturajava; <br>
+															public class GestorTareas { <br>
+															public void ejecutar (TareaProducto tarea,Producto p) { <br>
+															 tarea.ejecutar(p); <br>
+															} <br>
+														} <br> <br>
+														package com.arquitecturajava; <br>
+														import java.util.ArrayList; <br>
+														import java.util.List; <br>
+														public class SuperTarea implements TareaProducto { <br>
+    													private List<TareaProducto> lista= new ArrayList<TareaProducto>(); <br>
+																public void addTarea(TareaProducto tarea) { <br>
+																	lista.add(tarea);<br>
+																} <br>
+																@Override <br>
+																public void ejecutar(Producto producto) { <br>
+																	lista.forEach((t)->t.ejecutar(producto));; <br>
+																} <br>
+															} <br> <br>
+															package com.arquitecturajava; <br>
+															public class Principal {<br>
+																public static void main(String[] args) {<br>
+																	SuperTarea st= new SuperTarea(); <br>
+																	st.addTarea(new ValidarProducto()); <br>
+																	st.addTarea(new TareaEnvioCorreo()); <br>
+																	GestorTareas gt= new GestorTareas(); <br>
+																	Producto p= new Producto(1,"tablet",100); <br>
+																	gt.ejecutar(st, p); <br>
+																} <br> } <br>
+													</p>
+										</div>
+									  </form>
+									</div>
+
+									<button onclick="document.getElementById('modal-wrapper3').style.display='block'" style="width:200px; margin-top:0px;  margin-left:0px;">
+											Patrón Interpreter</button>
+											
+											<div id="modal-wrapper3" class="modal3">
+											  
+											  <form class="modal-content3 animate" action="/action_page.php">
+													
+												<div class="imgcontainer3">
+														<span onclick="document.getElementById('modal-wrapper3').style.display='none'" class="close" title="Close PopUp">&times;</span>
+												  <h1 style="text-align:center">Patrón Interpreter</h1>
+												</div>
+											<br>
+											<br>
+												<div class="container" >
+															<p>
+															<br>
+															// En primer lugar definiremos el Context, que nos permitirá gestionar las <br> // entradas y salidas del sistema <br>
+															public class Context{ <br> private String nextOp = ""; <br> private int operator = 0; <br>
+															private int result = 0;	public int getInteger(String in) <br>{ <br> if(in.toLowerCase().equals("cero")) <br>
+															return 0; <br> else if(in.toLowerCase().equals("uno")) <br> return 1; <br> else if(in.toLowerCase().equals("dos")) <br>
+															return 2; <br> else if(in.toLowerCase().equals("tres")) <br> return 3; <br> else if(in.toLowerCase().equals("cuatro")) <br>
+															return 4; <br> else if(in.toLowerCase().equals("cinco")) <br>return 5;<br>else if(in.toLowerCase().equals("seis")) <br>
+															return 6; <br>else if(in.toLowerCase().equals("siete")) <br> return 7; <br> else if(in.toLowerCase().equals("ocho")) <br>
+															return 8; <br> else if(in.toLowerCase().equals("nueve")) <br> return 9; <br> else <br> return -1; <br> } <br>
+															public void setOperator(int operator) <br> { <br> this.operator = operator; <br> } <br>
+															public void setOperation(String operation) <br>{<br> if(operation.toLowerCase().equals("mas")) <br>
+															this.nextOp = "+"; <br> else if(operation.toLowerCase().equals("menos")) <br> this.nextOp = "-"; <br> } <br>
+															public void calculate() <br> { <br> if(this.nextOp.toLowerCase().equals("") <br>|| <br> this.nextOp.toLowerCase().equals("+") ) <br>
+															this.result  += operator; <br> else if(this.nextOp.toLowerCase().equals("-")) <br> this.result -= operator; } <br>
+															pubic int getResult() { return this.result; } } <br>// A continuación definiremos la interfaz para AbstractExpression <br>
+															public interface Expression {  public abstract void interpret(Context context); } <br> // En este ejemplo, por simplicidad, sólo utilizaremos nodos terminales. <br>
+															// Definiremos 2 tipos: OperatorExpression y NumericExpression <br>// Definimos OperationExpression para las operaciones mas y menos
+															public class OperationExpression implements AbstractExpression { private String operation; <br>
+															pubilc OperationExpression(String token) { this.operator = token; } <br> public interpret(Context context) <br>
+															{ context.setOperation(this.operation); context.calculate(); } } <br>
+															// Definimos NumericExpression para los operadores numéricos <br>
+																public class NumericExpression implements Expression <br>
+																{ <br>
+																		private String value; <br>
+																		pubilc NumericExpression(String token) <br>
+																		{ <br> this.value = token; <br> } <br>
+																		interpret(Context context) <br>{ <br> context.setOperator(context.getInteger(this.value)); <br>
+																				context.calculate(); <br> } <br> } <br>
+																// Una vez tenemos todos los componentes, pasemos a definir el cliente, <br>
+																// que se encargará de montar el árbol sintáctico y evaluar la expresión. <br>
+																// La ejecución de nuestro programa se realizará de la siguiente manera: <br>
+																// java Interpreter uno mas cinco menos cuatro <br>
+																public class Interpreter { <br>
+																		public static void main(String [] args) <br>
+																		{ <br> // Creamos el arbol de expresiones y el contexto <br>
+																				ArrayList tree = new ArrayList(); <br>
+																				Context context = new Context(); <br>
+																				// Añadimos los tokens pasados como argumentos <br>
+																				for(String token : args) <br>
+																				{ <br> if(context.getInteger(token) >= 0) <br> tree.add(new NumericExpression(token)); <br>
+																				else <br> tree.add(new OperationExpression(token)); <br> } <br>
+																				// Interpretamos cada expresión <br> for(Expression e : tree) <br>
+																				e.interpret(context); <br> // Mostramos el resultado <br>
+																				System.out.println("El resultado de la interpretación es " + context.getResult()); <br>}<br>}
+															</p>
+												</div>
+											  </form>
+											</div>
+
+											<button onclick="document.getElementById('modal-wrapper4').style.display='block'" style="width:200px; margin-top:100px;  margin-left:50px;">
+												Patrón Iterator</button>
+												
+												<div id="modal-wrapper4" class="modal4">
+												  
+												  <form class="modal-content4 animate" action="/action_page.php">
+														
+													<div class="imgcontainer4">
+															<span onclick="document.getElementById('modal-wrapper4').style.display='none'" class="close" title="Close PopUp">&times;</span>
+													  <h1 style="text-align:center">Patrón Iterator</h1>
+													</div>
+												<br>
+												<br>
+													<div class="container" >
+																<p> <br>
+																		interface Iterable { <br>
+																			Iterator iterator(); <br> }	<br>																		
+																			class MiVector implements Iterable { <br>																			
+																			int[] arrayNumeros;	<br>															
+																			Iterator iterator() { <br>																		
+																			return new MiVectorIterator(this);	<br> } <br> } <br>																		
+																			/* En este caso next() retornará un int, que es el tipo de elementos que almacena mi colección. <br> Para una interfaz Iterator verdaderamente genérica debería retornar Object o utilizar Generics */	<br>																		
+																			interface Iterator { <br>																			
+																			boolean hasNext();	<br>																		
+																			int next(); <br> }		<br>																	
+																			/* Asumimos que MiVector no puede contener elementos nulos */	<br>																		
+																			class MiVectorIterator implements Iterator { <br>
+																			MiVector miVector; <br>
+																			int indiceActual; <br>
+																			MiVectorIterator(MiVector miVector) { <br>
+																			this.miVector = miVector; <br>
+																			indiceActual = 0; <br> } <br>
+																			boolean hasNext() { <br> return (miVector.arrayNumeros.length > indiceActual); <br> } <br>
+																			int next() { <br> indiceActual++; if (miVector.arrayNumeros.length > indiceActual) <br> { <br>
+																			return miVector.arrayNumeros[indiceActual]; <br>
+																			} <br> else { <br> throw new NoSuchElementException(); <br> } <br> } <br> } <br>
+																			class Main { <br>
+																				public static void main (String[] args) <br> { <br> MiVector miVector = new MiVector(); <br>
+																				// Inicializar la instancia miVector <br>
+																				Iterator iterator = miVector.iterator(); <br>
+																				int acumulador = 0; <br>
+																				while (iterator.hasNext()) { <br>
+																				int valorActual = iterator.next(); <br>
+																				acumulador += valorActual; <br> } <br>
+																				System.out.println(“El acumulado de los valores de miVector es ” + acumulador); <br> } <br> }
+																</p>
+													</div>
+												  </form>
+												</div>
+
+												<button onclick="document.getElementById('modal-wrapper5').style.display='block'" style="width:200px; margin-top:100px;  margin-left:30px;">
+													Patrón Mediator</button>
+													
+													<div id="modal-wrapper5" class="modal5">
+													  
+													  <form class="modal-content5 animate" action="/action_page.php">
+															
+														<div class="imgcontainer5">
+																<span onclick="document.getElementById('modal-wrapper5').style.display='none'" class="close" title="Close PopUp">&times;</span>
+														  <h1 style="text-align:center">Patrón Mediator</h1>
+														</div>
+													<br>
+													<br>
+														<div class="container" >
+																	<p> 
+																			import java.awt.Font; <br>
+																			import java.awt.event.ActionEvent; <br>
+																			import java.awt.event.ActionListener; <br>
+																			import javax.swing.JButton; <br>
+																			import javax.swing.JFrame; <br>
+																			import javax.swing.JLabel; <br>
+																			import javax.swing.JPanel; <br>
+																			//Interfaz Amigo <br>
+																			interface Command <br> { <br>
+																				void execute(); <br>
+																			} <br> //Mediador Abstracto <br>
+																			interface IMediator { <br>
+																				void book(); <br>
+																				void view(); <br>
+																				void search(); <br>
+																				void registerView(BtnView v); <br>
+																				void registerSearch(BtnSearch s); <br>
+																				void registerBook(BtnBook b); <br>
+																				void registerDisplay(LblDisplay d); <br> } <br>							
+																			//Mediador Concreto <br>
+																			class Mediator implements IMediator { <br>
+																			BtnView btnView; BtnSearch btnSearch; BtnBook btnBook; <br>
+																			LblDisplay show; void registerView(BtnView v) { <br>
+																			btnView = v; <br> } <br> 
+																			void registerSearch(BtnSearch s) { <br>
+																			btnSearch = s; <br> } <br>
+																			void registerBook(BtnBook b) { <br>
+																			btnBook = b; <br> } <br>
+																			void registerDisplay(LblDisplay d) { <br>
+																			show = d; <br> } <br>
+																			void book() { <br>
+																					btnBook.setEnabled(false); <br>
+																					btnView.setEnabled(true); <br>
+																					btnSearch.setEnabled(true); <br>
+																					show.setText("booking..."); <br> } <br>
+																			void view() { <br>
+																					btnView.setEnabled(false); <br>
+																					btnSearch.setEnabled(true); <br>
+																					btnBook.setEnabled(true); <br>
+																					show.setText("viewing..."); <br> } <br>
+																			void search() { <br>
+																					btnSearch.setEnabled(false); <br>
+																					btnView.setEnabled(true); <br>
+																					btnBook.setEnabled(true); <br>
+																					show.setText("searching..."); <br>
+																				} <br> } <br>
+																			//Un amigo concreto <br>
+																			class BtnView extends JButton implements Command { <br>
+																			IMediator med; <br>
+																			BtnView(ActionListener al, IMediator m) { <br>
+																					super("View"); <br>
+																					addActionListener(al); <br>
+																					med = m; <br>
+																					med.registerView(this); <br> } <br>
+																			public void execute() { <br>
+																					med.view(); <br> } <br> } <br>
+																			//Un amigo concreto <br>
+																			class BtnSearch extends JButton implements Command { <br>
+																			IMediator med; <br>
+																			BtnSearch(ActionListener al, IMediator m) { <br>
+																					super("Search"); <br>
+																					addActionListener(al); <br>
+																					med = m; <br>
+																					med.registerSearch(this); <br> } <br>
+																			public void execute() { <br>
+																					med.search(); <br> } <br> } <br>
+																			//Un amigo concreto <br>
+																			class BtnBook extends JButton implements Command { <br>
+																			IMediator med; <br>
+																			BtnBook(ActionListener al, IMediator m) { <br>
+																					super("Book"); <br>
+																					addActionListener(al); <br>
+																					med = m; <br>
+																					med.registerBook(this); <br> } <br>
+																			public void execute() { <br>
+																					med.book(); <br> } <br> } <br>
+																			class LblDisplay extends JLabel { <br>
+																			IMediator med; <br>
+																			LblDisplay(IMediator m) { <br>
+																					super("Just start..."); <br>
+																					med = m; <br>
+																					med.registerDisplay(this); <br>
+																					setFont(new Font("Arial", Font.BOLD, 24)); <br> } <br> } <br>
+																			class MediatorDemo extends JFrame implements ActionListener { <br>
+																			IMediator med = new Mediator(); <br>
+																			MediatorDemo() { <br>
+																					JPanel p = new JPanel(); <br>
+																					p.add(new BtnView(this, med)); <br>
+																					p.add(new BtnBook(this, med)); <br>
+																					p.add(new BtnSearch(this, med)); <br>
+																					getContentPane().add(new LblDisplay(med), "North"); <br>
+																					getContentPane().add(p, "South"); <br>
+																					setSize(400, 200); <br>
+																					setVisible(true); <br> } <br>
+																			public void actionPerformed(ActionEvent ae) { <br>
+																					Command comd = (Command) ae.getSource(); <br>
+																					comd.execute(); <br> } <br>
+																			public static void main(String[] args) { <br>
+																					new MediatorDemo(); <br> } <br> }
+																	</p>
+														</div>
+													  </form>
+													</div>
+
+													<button onclick="document.getElementById('modal-wrapper6').style.display='block'" style="width:200px; margin-top:100px;  margin-left:35px;">
+															Patrón Observer</button>
+															
+															<div id="modal-wrapper6" class="modal6">
+															  
+															  <form class="modal-content6 animate" action="/action_page.php">
+																	
+																<div class="imgcontainer6">
+																		<span onclick="document.getElementById('modal-wrapper6').style.display='none'" class="close" title="Close PopUp">&times;</span>
+																  <h1 style="text-align:center">Patrón Observer</h1>
+																</div>
+															<br>
+															<br>
+																<div class="container" >
+																			<p> 
+																					public static void main(String[] args) <br>
+																					{ <br>
+																					ClaseObservador observador=new ClaseObservador(); <br>
+																					VentanaOpciones miVentanaOpciones=new VentanaOpciones(observador); <br>
+																					VentanaColor miVentanaColor=new VentanaColor(observador); <br>
+																					VentanaSeleccion miVentanaSeleccion=new VentanaSeleccion(observador); <br> <br>
+																					/**Aqui se Agregan los observadores*/ <br>
+																					observador.addObserver(miVentanaColor); <br>
+																					observador.addObserver(miVentanaSeleccion); <br>
+																					observador.addObserver(miVentanaOpciones); <br>
+																					} <br>
+																			</p>
+																</div>
+															  </form>
+															</div>
+			</section>
+			<!-- End Service Area -->
+		
+			<!-- Start footer Area -->
+			<footer>
+				<div class="container">
+					<div class="footer-content d-flex justify-content-between align-items-center flex-wrap">
+						<div class="logo">
+							<img src="img/logo2.png" width="100px">
+						</div>
+						<div class="text-white">Copyright 2018  |  All rights reserved. 
+							<p>DESARROLLADORES:</p>
+							<p>Ochoa Argueta Hugo Ernesto OA14014</p>
+							<p>Chica Rodríguez Julio César CR14029</p>
+							<p>Orellana Araniva Loris Armando OA15010</p>
+							
+						</div>
+						<div class="text-white">Universidad de El Salvador FMO.
+							<p>MAteria:</p>
+							<p>Ingenieria de Software</p>
+							<p>Docente:</p>
+							<p>Ing.Alicia Milagro de Reyes </p>
+						</div>
+						
+					</div>
+				</div>
+			</footer>
+			<!-- End footer Area -->
+		</div>
+
+
+
+
+		<script src="js/vendor/jquery-2.2.4.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+		<script src="js/vendor/bootstrap.min.js"></script>
+		<script src="js/jquery.ajaxchimp.min.js"></script>
+		<script src="js/owl.carousel.min.js"></script>
+		<script src="js/jquery.nice-select.min.js"></script>
+		<script src="js/jquery.magnific-popup.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
